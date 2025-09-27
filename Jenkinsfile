@@ -28,7 +28,7 @@ pipeline {
                 script {
                     if (isUnix()) {
                         sh 'chmod +x scripts/hello.sh'
-                        sh './scripts/hello.sh "${params.NAME}" > output.txt'
+                        sh './scripts/hello.sh '${params.NAME}' > output.txt'
                     } else {
                         bat 'bash scripts/hello.sh "${params.NAME}" > output.txt'
                     }
