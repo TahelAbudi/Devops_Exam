@@ -1,14 +1,15 @@
 ﻿# DevOps Exam Project
 
-# Running Jenkins
+# Repository URL
+https://github.com/TahelAbudi/Devops_Exam.git
+
+# Docker Setup
 Used this command to start Jenkins:
-```
-docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
-```
+`docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts`
 
 The volume `jenkins_home` keeps all Jenkins data when container restarts.
 
-# Setup
+# Credentials handling
 - Got initial password with: `docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword`  
 - Installed suggested plugins
 - Created admin user via web interface
@@ -21,8 +22,17 @@ The volume `jenkins_home` keeps all Jenkins data when container restarts.
 
 # How it works
 Pipeline takes a NAME parameter (default "World"), runs the hello script, and saves output to artifact.
+- The script uses `set -euo pipefail` for error handling as required.
 
-The script uses `set -euo pipefail` for error handling as required.
+# Screenshots
+# Jenkins Build History with Successful Run
+![Build History](screenshots/Jenkins_build_history.png)
+
+# Archived Artifact (output.txt) in Jenkins
+![Artifact](screenshots/Archived_artifact_Jenkins.png)
+
+# Jenkins Successful Build
+![Successful Build](screenshots/Jenkins_successful_build.png)
 
 # Questions and Answers
 1. If you kill the Jenkins container, what command do you use to start it again with the same configuration?
@@ -41,3 +51,19 @@ The script uses `set -euo pipefail` for error handling as required.
 - Jenkins with Pipeline plugin
 - Bash environment
 - Git integration
+
+# Bonus Task
+1. Creatd new Jenkins node: `linux-dcker-1` with label `linux-docker-extra`
+2. Ran agent in seperate Docker container using jenkins/inbound-agent image
+3. Connected agent to controller through Docker network
+4. Created pipeline that runs only on the dedicated agent
+
+
+# Docker ps Result - Two Containers Running
+![Docker PS](screenshots/Bonus%20Task/docker_ps_bonus.png)
+
+# Jenkins Nodes - Agent Connected  
+![Agent Node](screenshots/Bonus%20Task/new_node_bonus.png)
+
+# Pipeline Running on Agent
+![Agent Pipeline](screenshots/Bonus%20Task/successful_build_bonus.png)
